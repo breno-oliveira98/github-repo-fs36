@@ -14,21 +14,25 @@ const users = [
 const tbody = document.getElementById('tbody')
 
 function fetchGitHub() {
-    fetch(`https://api.github.com/users/breno-oliveira98`, { headers: { 'Authorization': `token API_TOKEN` } })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            tbody.innerHTML =
-                `
+
+
+    users.forEach(user => {
+        fetch(`https://api.github.com/users/${user.username}`, { headers: { 'Authorization': `token API_TOKEN` } })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                tbody.innerHTML +=
+                    `
             <tr>
                 <td><img src="${data.avatar_url}" style="width: 60px; height: 60px; border-radius: 50px;"></td>
                 <td>${data.name}</td>
                 <td>${data.login}</td>
                 <td>${data.public_repos}</td>
-                <td><a href="${data.url}">GitHub</a></td>
+                <td><a href="${data.html_url}" target="_blank">GitHub</a></td>
             </tr>
             `
-        })
+            })
+    })
 }
 
 fetchGitHub()
