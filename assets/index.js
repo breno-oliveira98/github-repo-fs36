@@ -13,6 +13,22 @@ const users = [
 
 const tbody = document.getElementById('tbody')
 
+function limparLista() {
+    tbody.innerHTML = ''
+}
+
+function deletarItem(button) {
+    const isConfirmed = confirm('Tem certeza que deseja excluir?')
+
+    if (isConfirmed) {
+        const row = button.closest('tr');
+        row.remove()
+        alert('Item deletado')
+    } else {
+        alert('Ação cancelada')
+    }
+}
+
 function fetchGitHub() {
 
 
@@ -28,14 +44,16 @@ function fetchGitHub() {
                 <td>${data.name}</td>
                 <td>${data.login}</td>
                 <td>${data.public_repos}</td>
-                <td><a href="${data.html_url}" target="_blank">GitHub</a></td>
+                <td><a href="${data.html_url}" target="_blank">GitHub</a></td>     
+                <td><button class="btn btn-danger" type="button" onclick="deletarItem(this)">Deletar</button></td>
             </tr>
             `
             })
     })
 }
 
-fetchGitHub()
+
+
 
 
 
